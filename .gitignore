@@ -1,0 +1,18 @@
+# Visual Studio user settings
+.vs/
+*.user
+*.suo
+*.sdf
+*.opensdf
+
+# Build outputs
+x64/
+Debug/
+Release/
+*.obj
+*.exe
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.log
