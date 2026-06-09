@@ -102,7 +102,7 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short &msg_id
 	Json::Reader reader;
 	Json::Value root;
 	reader.parse(msg_data, root);
-	auto uid = root["uid"].asInt();
+	auto uid = root["from_uid"].asInt();
 	auto token = root["token"].asString();
 	std::cout << "user login uid is  " << uid << " user token  is "
 		<< token << endl;
@@ -258,6 +258,7 @@ void LogicSystem::SearchInfo(std::shared_ptr<CSession> session, const short& msg
 	else {
 		GetUserByName(uid_str, rtvalue);
 	}
+	std::cout << "SearchInfo中获取的目标用户数据: id:" << rtvalue["uid"] << endl;
 	return;
 }
 
@@ -266,10 +267,10 @@ void LogicSystem::AddFriendApply(std::shared_ptr<CSession> session, const short&
 	Json::Reader reader;
 	Json::Value root;
 	reader.parse(msg_data, root);
-	auto uid = root["uid"].asInt();
-	auto applyname = root["applyname"].asString();
+	auto uid = root["from_uid"].asInt();
+	auto applyname = root["from_name"].asString();
 	auto bakname = root["bakname"].asString();
-	auto touid = root["touid"].asInt();
+	auto touid = root["to_uid"].asInt();
 	std::cout << "user login uid is  " << uid << " applyname  is "
 		<< applyname << " bakname is " << bakname << " touid is " << touid << endl;
 
@@ -347,7 +348,7 @@ void LogicSystem::AuthFriendApply(std::shared_ptr<CSession> session, const short
 	reader.parse(msg_data, root);
 
 	auto uid = root["fromuid"].asInt();
-	auto touid = root["touid"].asInt();
+	auto touid = root["to_uid"].asInt();
 	auto back_name = root["back"].asString();
 	std::cout << "from " << uid << " auth friend to " << touid << std::endl;
 
@@ -398,16 +399,16 @@ void LogicSystem::AuthFriendApply(std::shared_ptr<CSession> session, const short
 			//在内存中则直接发送通知对方
 			Json::Value  notify;
 			notify["error"] = ErrorCodes::Success;
-			notify["fromuid"] = uid;
-			notify["touid"] = touid;
+			notify["peer_uid"] = uid;
+			notify["peer_touid"] = touid;
 			std::string base_key = USER_BASE_INFO + std::to_string(uid);
 			auto user_info = std::make_shared<UserInfo>();
 			bool b_info = GetBaseInfo(base_key, uid, user_info);
 			if (b_info) {
-				notify["name"] = user_info->name;
-				notify["nick"] = user_info->nick;
-				notify["icon"] = user_info->icon;
-				notify["sex"] = user_info->sex;
+				notify["peer_name"] = user_info->name;
+				notify["peer_nick"] = user_info->nick;
+				notify["peer_icon"] = user_info->icon;
+				notify["peer_sex"] = user_info->sex;
 			}
 			else {
 				notify["error"] = ErrorCodes::UidInvalid;
@@ -436,7 +437,7 @@ void LogicSystem::DealChatTextMsg(std::shared_ptr<CSession> session, const short
 	reader.parse(msg_data, root);
 
 	auto uid = root["fromuid"].asInt();
-	auto touid = root["touid"].asInt();
+	auto touid = root["to_uid"].asInt();
 
 	const Json::Value  arrays = root["text_array"];
 	
@@ -528,7 +529,7 @@ void LogicSystem::GetUserByUid(std::string uid_str, Json::Value& rtvalue)
 		Json::Reader reader;
 		Json::Value root;
 		reader.parse(info_str, root);
-		auto uid = root["uid"].asInt();
+		auto uid = root["from_uid"].asInt();
 		auto name = root["name"].asString();
 		auto pwd = root["pwd"].asString();
 		auto email = root["email"].asString();
@@ -556,6 +557,7 @@ void LogicSystem::GetUserByUid(std::string uid_str, Json::Value& rtvalue)
 	std::shared_ptr<UserInfo> user_info = nullptr;
 	user_info = MysqlMgr::GetInstance()->GetUser(uid);
 	if (user_info == nullptr) {
+		cout << "Search操作中未在数据库中查询到这个用户" << endl;
 		rtvalue["error"] = ErrorCodes::UidInvalid;
 		return;
 	}
@@ -582,6 +584,8 @@ void LogicSystem::GetUserByUid(std::string uid_str, Json::Value& rtvalue)
 	rtvalue["desc"] = user_info->desc;
 	rtvalue["sex"] = user_info->sex;
 	rtvalue["icon"] = user_info->icon;
+
+	
 }
 
 void LogicSystem::GetUserByName(std::string name, Json::Value& rtvalue)
@@ -597,7 +601,7 @@ void LogicSystem::GetUserByName(std::string name, Json::Value& rtvalue)
 		Json::Reader reader;
 		Json::Value root;
 		reader.parse(info_str, root);
-		auto uid = root["uid"].asInt();
+		auto uid = root["from_uid"].asInt();
 		auto name = root["name"].asString();
 		auto pwd = root["pwd"].asString();
 		auto email = root["email"].asString();

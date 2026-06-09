@@ -1,6 +1,6 @@
 @echo off
-set PROTOC_PATH=D:\cppsoft\grpc\visualpro\third_party\protobuf\Debug\protoc.exe
-set GRPC_PLUGIN_PATH=D:\cppsoft\grpc\visualpro\Debug\grpc_cpp_plugin.exe
+set PROTOC_PATH=E:\cppSort\grpc\visualpro\CMakeFiles\third_party\protobuf\Debug\protoc.exe
+set GRPC_PLUGIN_PATH=E:\cppSort\grpc\visualpro\CMakeFiles\Debug\grpc_cpp_plugin.exe
 set PROTO_FILE=message.proto
 
 echo Generating gRPC code...

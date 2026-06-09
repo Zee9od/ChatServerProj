@@ -66,17 +66,17 @@ Status ChatServiceImpl::NotifyAuthFriend(ServerContext* context, const AuthFrien
 	//在内存中则直接发送通知对方
 	Json::Value  rtvalue;
 	rtvalue["error"] = ErrorCodes::Success;
-	rtvalue["fromuid"] = request->fromuid();
-	rtvalue["touid"] = request->touid();
+	rtvalue["peer_uid"] = request->fromuid();
+	rtvalue["peer_touid"] = request->touid();
 
 	std::string base_key = USER_BASE_INFO + std::to_string(fromuid);
 	auto user_info = std::make_shared<UserInfo>();
 	bool b_info = GetBaseInfo(base_key, fromuid, user_info);
 	if (b_info) {
-		rtvalue["name"] = user_info->name;
-		rtvalue["nick"] = user_info->nick;
-		rtvalue["icon"] = user_info->icon;
-		rtvalue["sex"] = user_info->sex;
+		rtvalue["peer_name"] = user_info->name;
+		rtvalue["peer_nick"] = user_info->nick;
+		rtvalue["peer_icon"] = user_info->icon;
+		rtvalue["peer_sex"] = user_info->sex;
 	}
 	else {
 		rtvalue["error"] = ErrorCodes::UidInvalid;
