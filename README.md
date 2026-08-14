@@ -1,8 +1,8 @@
 # ChatServer 高并发聊天系统
 
-一个基于 **C++17 / boost::asio / gRPC** 实现的分布式即时通讯（IM）聊天服务器，是整个 `llfcchat` 项目的核心服务，负责客户端的 TCP 长连接、消息路由、好友关系与聊天记录的读写。
+一个基于 **C++17 / boost::asio / gRPC** 实现的分布式即时通讯（IM）聊天服务器，是整个项目的核心服务，负责客户端的 TCP 长连接、消息路由、好友关系与聊天记录的读写。
 
-> 本仓库是 llfcchat 分布式聊天系统中的一个子服务（ChatServer），配合 GateServer / StatusServer / VarifyServer 与 Qt 客户端组成完整的 IM 系统。
+> 本仓库是 分布式聊天系统中的一个子服务（ChatServer），配合 GateServer / StatusServer / VarifyServer 与 Qt 客户端组成完整的 IM 系统。
 
 ---
 
@@ -21,7 +21,7 @@
 
 ## 项目背景
 
-`llfcchat` 是一个用于学习 C++ 后端综合技术的实战项目，涵盖**网络编程（asio）**、**RPC（gRPC）**、**并发编程**、**数据库（MySQL + Redis）** 以及 **Qt 客户端开发**等多种技术。
+这个项目是 C++ 后端综合技术的实战项目，涵盖**网络编程（asio）**、**RPC（gRPC）**、**并发编程**、**数据库（MySQL + Redis）** 以及 **Qt 客户端开发**等多种技术。
 
 ChatServer 是其中的核心服务，承担最重的业务：
 
@@ -30,7 +30,6 @@ ChatServer 是其中的核心服务，承担最重的业务：
 - 通过 **MySQL** 持久化用户、好友关系与聊天记录；
 - 通过 **gRPC** 与其它 ChatServer 实例以及 StatusServer 通信，实现分布式（多服务实例）下的好友通知、踢人下线、跨服消息等能力。
 
-整个系统架构设计来自恋恋风辰老师的开源课程《llfcchat》，本仓库将 ChatServer 拆分为独立仓库，便于部署、学习和二次开发。
 
 ---
 
@@ -398,6 +397,4 @@ Port = 50055
 
 ## 致谢
 
-本项目架构与业务设计源自 [恋恋风辰（llfc）](https://gitee.com/secondtonone1/llfcchat) 的开源课程 **llfcchat**，配套的 30+ 篇开发文档（注册、登录、好友、聊天、分布式锁、心跳、踢人等）位于仓库根目录 `开发文档/`，建议结合学习。
 
-仅用于学习交流，如涉及侵权请联系删除。
