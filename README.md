@@ -116,14 +116,11 @@ ChatServerProj/
 
 ## 待完善事项
 
-- [ ] 增加日志系统（如spdlog）
 - [ ] 支持Linux/macOS平台
 - [ ] 编写配套客户端示例
 - [ ] 完善错误处理与重连机制
 
-## 许可证
 
-[MIT](https://opensource.org/licenses/MIT)
 
 ## 作者
 
@@ -134,6 +131,3 @@ Zee9od
 如有问题，欢迎提交[Issue](https://github.com/Zee9od/ChatServerProj/issues)。
 ```
 
-- 列表使用`-`符号，简洁明了
-
-如果还需要调整某些部分的风格或内容，请告诉我。
