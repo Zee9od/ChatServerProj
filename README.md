@@ -1,4 +1,3 @@
-您说得对，我重新写一份格式更清晰、更符合GitHub README常见样式的文档。这次我会注意排版规范，让层次更分明。
 
 ```markdown
 # ChatServerProj
