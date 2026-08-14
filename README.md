@@ -1,4 +1,4 @@
-# LLFCChat — ChatServer
+# ChatServer 高并发聊天系统
 
 一个基于 **C++17 / boost::asio / gRPC** 实现的分布式即时通讯（IM）聊天服务器，是整个 `llfcchat` 项目的核心服务，负责客户端的 TCP 长连接、消息路由、好友关系与聊天记录的读写。
 
